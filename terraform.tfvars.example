@@ -1,0 +1,143 @@
+# -----------------------------------------------------------------------------
+# EXAMPLE TERRAFORM VARIABLES
+#
+# Copy this file to a new file named <environment>.tfvars (e.g., prod.tfvars)
+# and update the values to match your target environment.
+#
+# USAGE:
+# terraform plan -var-file="prod.tfvars"
+# terraform apply -var-file="prod.tfvars"
+# -----------------------------------------------------------------------------
+
+# -------------------------------------
+# General Settings
+# -------------------------------------
+
+# The full name of the environment (e.g., "prod", "qa"). Used for naming and tagging.
+environment_name = "prod"
+
+# A short prefix for the environment (e.g., "p", "q"). Used for short names in resources.
+environment_short_prefix = "p"
+
+# The Azure region where the resources are deployed.
+location = "australiaeast"
+
+# The name of the resource group where the AKS cluster and Log Analytics Workspace reside.
+resource_group_name = "prod-immuta-aks-rg"
+
+# The name of the existing Log Analytics Workspace to scope alerts to.
+log_analytics_workspace_name = "prod-immuta-law"
+
+# The name of the existing AKS cluster to scope alerts to.
+aks_cluster_name = "prod-immuta-aks"
+
+# The base URL for your team's runbooks or troubleshooting guides.
+runbook_base_url = "https://your-wiki.com/runbooks"
+
+# A map of tags to apply to all created resources.
+tags = {
+  BillingCode = "BC-12345"
+  Owner       = "SRE Team"
+}
+
+
+# -------------------------------------
+# Notification Settings
+# -------------------------------------
+
+# A list of email addresses for the SRE team (for standard alerts).
+alert_email_sre = ["sre-oncall@example.com", "sre-team-distro@example.com"]
+
+# A list of email addresses for the primary on-call rotation (for critical alerts).
+alert_email_oncall_primary = ["pagerduty-critical@example.com", "oncall-primary-user@example.com"]
+
+# A list of email addresses for the secondary on-call rotation (for critical alerts).
+alert_email_oncall_secondary = ["oncall-secondary-user@example.com"]
+
+# A list of email addresses for manager escalation (for critical alerts).
+alert_email_manager = ["engineering-manager@example.com"]
+
+# (Optional) The webhook URL for standard Teams notifications.
+teams_webhook_standard = ""
+
+# (Optional) The webhook URL for critical Teams notifications.
+teams_webhook_critical = ""
+
+
+# -------------------------------------
+# Maintenance Window Settings
+# -------------------------------------
+
+# Set to false to disable the maintenance window suppression rule entirely.
+enable_maintenance_window_suppression = true
+
+# The IANA timezone name for the schedule.
+# Example for Auckland: "Pacific/Auckland"
+# Example for US East Coast: "America/New_York"
+maintenance_window_timezone = "Pacific/Auckland"
+
+# The start and end time for the maintenance window in 24-hour HH:MM:SS format.
+maintenance_window_start_time = "02:00:00"
+maintenance_window_end_time   = "04:00:00"
+
+# A list of days for the maintenance.
+# Example for every Saturday and Sunday: ["Saturday", "Sunday"]
+maintenance_window_days_of_week = ["Sunday"]
+
+# -------------------------------------
+# After-Hours Suppression Settings
+# -------------------------------------
+
+# Set to false to disable the after-hours suppression rule entirely.
+enable_after_hours_suppression = true
+
+# A list of environments where this rule should apply.
+# For example, to enable for both 'qa' and 'dev', use: ["qa", "dev"]
+# To disable for all, use an empty list: []
+after_hours_suppression_environments = ["qa"]
+
+# The IANA timezone name for the schedule.
+after_hours_suppression_timezone = "Pacific/Auckland"
+
+# The start and end time for the after-hours suppression window.
+after_hours_start_time = "18:00:00"
+after_hours_end_time   = "08:00:00"
+
+
+# -------------------------------------
+# Alert Thresholds
+# -------------------------------------
+# These values are based on the "Production" environment in the design document.
+
+# --- Azure Level Thresholds ---
+azure_subscription_quota_threshold      = 80
+azure_cost_anomaly_percentage_threshold = 50
+nsg_blocked_connections_threshold       = 100
+
+# --- Node Thresholds ---
+node_cpu_warning_threshold      = 75
+node_cpu_critical_threshold     = 85
+node_memory_warning_threshold   = 80
+node_memory_critical_threshold  = 90
+node_disk_warning_threshold     = 75
+node_disk_critical_threshold    = 90
+node_readiness_flapping_count   = 3
+
+# --- Pod & Container Thresholds ---
+pod_cpu_warning_threshold       = 65
+pod_cpu_critical_threshold      = 85
+pod_memory_warning_threshold    = 70
+pod_memory_critical_threshold   = 85
+pod_restart_warning_threshold   = 3
+pod_restart_critical_threshold  = 8
+pod_container_waiting_minutes_threshold = 60
+
+# --- Control Plane Thresholds (in Milliseconds) ---
+api_server_latency_warning_ms   = 100
+api_server_latency_critical_ms  = 300
+etcd_latency_warning_ms         = 50
+etcd_latency_critical_ms        = 200
+
+# --- Cluster & Workload Thresholds ---
+cluster_cpu_overcommit_ratio_threshold      = 1.5
+cluster_memory_overcommit_ratio_threshold   = 1.5

@@ -1,0 +1,35 @@
+# .gitignore for Terraform Projects
+
+# Local Terraform directories and files
+# These files are created locally when you run terraform init, plan, and apply.
+# They should not be committed to version control.
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfplan
+crash.log
+crash.*.log
+
+# Inconvenient since this module uses the .tfvars pattern,
+# but it's a best practice to prevent accidental commits of secrets.
+# Users should use a secrets management system or a secure pipeline
+# to inject variables, not commit them.
+*.tfvars
+*.tfvars.json
+
+# Terraform override files
+# These are meant for local-only overrides and should not be shared.
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Terraform CLI configuration files
+.terraformrc
+terraform.rc
+
+# Platform-specific files for macOS, Windows, and Linux
+.DS_Store
+Thumbs.db
+*~
+*.swp
