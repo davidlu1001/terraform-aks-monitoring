@@ -309,7 +309,7 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "pod_unavailable_criti
       | where TimeGenerated > ago(10m)
       | where PodStatus !in ("Running", "Succeeded", "Completed")
       // Add a filter for critical pods by uncommenting and editing the line below
-      // | where Namespace == "immuta" and PodName startswith "immuta-critical-component"
+      // | where Namespace == "app" and PodName startswith "app-critical-component"
       | summarize by PodName, PodStatus, Namespace
     QUERY
     time_aggregation_method = "Count"

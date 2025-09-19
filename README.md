@@ -42,9 +42,9 @@ Before using this module, ensure you have the following:
     environment_name               = "prod"
     environment_short_prefix       = "p"
     location                       = "australiaeast"
-    resource_group_name            = "prod-immuta-aks-rg"
-    log_analytics_workspace_name   = "prod-immuta-law"
-    aks_cluster_name               = "prod-immuta-aks"
+    resource_group_name            = "prod-app-aks-rg"
+    log_analytics_workspace_name   = "prod-app-law"
+    aks_cluster_name               = "prod-app-aks"
 
     # Notification Settings
     alert_email_sre                = ["sre-oncall@example.com"]

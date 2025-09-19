@@ -23,13 +23,13 @@ environment_short_prefix = "p"
 location = "australiaeast"
 
 # The name of the resource group where the AKS cluster and Log Analytics Workspace reside.
-resource_group_name = "prod-immuta-aks-rg"
+resource_group_name = "prod-app-aks-rg"
 
 # The name of the existing Log Analytics Workspace to scope alerts to.
-log_analytics_workspace_name = "prod-immuta-law"
+log_analytics_workspace_name = "prod-app-law"
 
 # The name of the existing AKS cluster to scope alerts to.
-aks_cluster_name = "prod-immuta-aks"
+aks_cluster_name = "prod-app-aks"
 
 # The base URL for your team's runbooks or troubleshooting guides.
 runbook_base_url = "https://your-wiki.com/runbooks"
